@@ -6,16 +6,17 @@ namespace MovieList.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private MovieContext _context { get; set; }
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(MovieContext context)
     {
-        _logger = logger;
+        _context = context;
     }
 
     public IActionResult Index()
     {
-        return View();
+        var movies = _context.Movies.OrderBy(m => m.Name).ToList();
+        return View(movies);
     }
 
 }
