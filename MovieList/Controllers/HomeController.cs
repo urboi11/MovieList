@@ -1,4 +1,4 @@
-using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using MovieList.Models;
 
@@ -15,7 +15,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var movies = _context.Movies.OrderBy(m => m.Name).ToList();
+        var movies = _context.Movies.Include(m=> m.Genre).OrderBy(m => m.Name).ToList();
         return View(movies);
     }
 
